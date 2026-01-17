@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tsu San | Sushi Delivery</title>
+    <!-- Ícones e Fontes -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary: #e43f3f; /* Vermelho Japonês */
+            --dark: #121212;
+            --card-bg: #1e1e1e;
+            --text: #f4f4f4;
+            --gray: #aaa;
+            --whatsapp: #25d366;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
+        
+        body { background-color: var(--dark); color: var(--text); padding-bottom: 80px; }
+
+        /* HERO HEADER */
+        header {
+            background: linear-gradient(to bottom, rgba(0,0,0,0.8), var(--dark)), 
+                        url('https://images.unsplash.com/photo-1553621042-f6e147245754?q=80&w=1325&auto=format&fit=crop');
+            background-size: cover;
+            background-position: center;
+            padding: 40px 20px;
+            text-align: center;
+            border-bottom: 4px solid var(--primary);
+        }
+
+        .logo {
+            width: 150px;
+            height: 150px;
+            object-fit: cover;
+            border-radius: 50%;
+            border: 4px solid var(--primary);
+            box-shadow: 0 0 20px rgba(228, 63, 63, 0.4);
+            margin-bottom: 15px;
+        }
+
+        h1 { color: var(--primary); font-size: 2.2rem; margin-bottom: 5px; text-transform: uppercase; letter-spacing: 2px; }
+        .subtitle { color: var(--gray); font-size: 0.9rem; max-width: 500px; margin: 0 auto 20px auto; }
+
+        .header-btns { display: flex; justify-content: center; gap: 15px; margin-top: 15px; }
+        .btn-header {
+            padding: 10px 20px; border-radius: 50px; text-decoration: none; font-size: 0.9rem; font-weight: bold;
+            display: flex; align-items: center; gap: 8px; transition: 0.3s;
+        }
+        .btn-ifood { background: #ea1d2c; color: white; }
+        .btn-wpp { background: var(--whatsapp); color: white; }
+        .btn-header:hover { transform: scale(1.05); }
+
+        /* CATEGORIAS */
+        .category-title {
+            padding: 20px 20px 5px 20px;
+            font-size: 1.5rem;
+            color: var(--primary);
+            border-left: 5px solid var(--primary);
+            margin: 30px 20px 20px 20px;
+            background: linear-gradient(90deg, #1e1e1e 0%, transparent 100%);
+        }
+
+        /* GRID DE PRODUTOS */
+        .menu-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 20px;
+            padding: 0 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .card {
+            background: var(--card-bg);
+            border-radius: 15px;
+            overflow: hidden;
+            border: 1px solid #333;
+            display: flex;
+            flex-direction: column;
+            transition: 0.3s;
+        }
+
+        .card-img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .card-content { padding: 20px; flex: 1; display: flex; flex-direction: column; }
+        
+        .card h3 { font-size: 1.1rem; margin-bottom: 8px; color: #fff; }
+        .card p { font-size: 0.85rem; color: var(--gray); margin-bottom: 15px; flex: 1; }
+        
+        .card-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: auto;
+        }
+
+        .price { color: var(--primary); font-size: 1.3rem; font-weight: bold; }
+
+        .btn-add {
+            background: transparent;
+            border: 2px solid var(--primary);
+            color: var(--primary);
+            padding: 8px 15px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        .btn-add:hover { background: var(--primary); color: white; }
+
+        /* BARRA DE CARRINHO FIXA */
+        .cart-bar {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: #222;
+            border-top: 1px solid #444;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 100;
+            box-shadow: 0 -5px 20px rgba(0,0,0,0.5);
+            transform: translateY(100%);
+            transition: transform 0.3s ease;
+        }
+
+        .cart-bar.active { transform: translateY(0); }
+
+        .cart-info span { display: block; font-size: 0.8rem; color: #aaa; }
+        .cart-total { font-size: 1.2rem; font-weight: bold; color: var(--text); }
+
+        .btn-checkout {
+            background: var(--whatsapp);
+            color: white;
+            border: none;
+            padding: 10px 25px;
+            border-radius: 50px;
+            font-weight: bold;
+            font-size: 1rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.4); }
+            70% { box-shadow: 0 0 0 10px rgba(37, 211, 102, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); }
+        }
+
+        /* MODAL DE PEDIDO */
+        .modal-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.8);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            padding: 20px;
+        }
+
+        .modal-content {
+            background: #222;
+            padding: 25px;
+            border-radius: 15px;
+            width: 100%;
+            max-width: 400px;
+            border: 1px solid #444;
+        }
+
+        .modal-title { font-size: 1.3rem; margin-bottom: 20px; text-align: center; color: var(--primary); }
+
+        .form-group { margin-bottom: 15px; }
+        .form-group label { display: block; margin-bottom: 5px; font-size: 0.9rem; }
+        .form-group input, .form-group textarea, .form-group select {
+            width: 100%; padding: 10px; border-radius: 5px;
+            border: 1px solid #444; background: #333; color: white;
+        }
+
+        .btn-confirm {
+            width: 100%; background: var(--whatsapp); color: white;
+            border: none; padding: 12px; border-radius: 8px;
+            font-size: 1rem; font-weight: bold; cursor: pointer;
+        }
+        .btn-close {
+            background: transparent; color: #aaa; border: none;
+            width: 100%; margin-top: 10px; cursor: pointer; text-decoration: underline;
+        }
+
+        /* Notificação */
+        .toast {
+            position: fixed; top: 20px; right: 20px;
+            background: var(--primary); color: white;
+            padding: 10px 20px; border-radius: 5px;
+            z-index: 2000; display: none;
+        }
+
+    </style>
+</head>
+<body>
+
+    <header>
+        <!-- LOGO ATUALIZADA -->
+        <img src="https://res.cloudinary.com/dzracc9pu/image/upload/v1768610796/WhatsApp_Image_2026-01-16_at_21.46.09_k5cbhj.jpg" alt="Tsu San Logo" class="logo">
+        <h1>TSU SAN</h1>
+        <p class="subtitle">O melhor do Sushi e Yakisoba no Cabula VI. Peça direto conosco e garanta promoções exclusivas!</p>
+        
+        <div class="header-btns">
+            <a href="https://www.ifood.com.br/delivery/salvador-ba/tsu-san-cabula-vi/efa2e708-e8b1-4069-bf21-967fb0b232e9" target="_blank" class="btn-header btn-ifood">
+                <i class="fas fa-utensils"></i> Ver no iFood
+            </a>
+            <a href="#menu" class="btn-header btn-wpp">
+                <i class="fas fa-arrow-down"></i> Ver Cardápio
+            </a>
+        </div>
+    </header>
+
+    <div id="menu">
+        <!-- SEÇÃO COMBINADOS -->
+        <h2 class="category-title"><i class="fas fa-fish"></i> Combinados & Sushi</h2>
+        <div class="menu-grid" id="grid-sushi">
+            <!-- Inserido via JS -->
+        </div>
+
+        <!-- SEÇÃO YAKISOBA -->
+        <h2 class="category-title"><i class="fas fa-bacon"></i> Yakisobas (500g e 1Kg)</h2>
+        <div class="menu-grid" id="grid-yaki">
+            <!-- Inserido via JS -->
+        </div>
+
+        <!-- SEÇÃO BEBIDAS -->
+        <h2 class="category-title"><i class="fas fa-glass-cheers"></i> Bebidas</h2>
+        <div class="menu-grid" id="grid-bebidas">
+            <!-- Inserido via JS -->
+        </div>
+    </div>
+
+    <!-- Barra de Carrinho -->
+    <div class="cart-bar" id="cartBar">
+        <div class="cart-info">
+            <span>Total do Pedido:</span>
+            <div class="cart-total" id="cartTotal">R$ 0,00</div>
+        </div>
+        <button class="btn-checkout" onclick="abrirModal()">
+            <i class="fab fa-whatsapp"></i> Finalizar Pedido
+        </button>
+    </div>
+
+    <!-- Modal de Checkout -->
+    <div class="modal-overlay" id="modalCheckout">
+        <div class="modal-content">
+            <h3 class="modal-title">Finalizar Pedido</h3>
+            
+            <div class="form-group">
+                <label>Seu Nome:</label>
+                <input type="text" id="clienteNome" placeholder="Ex: João Silva">
+            </div>
+
+            <div class="form-group">
+                <label>Forma de Entrega:</label>
+                <select id="tipoEntrega" onchange="toggleEndereco()">
+                    <option value="delivery">Entregar (Delivery)</option>
+                    <option value="retirada">Vou Retirar</option>
+                </select>
+            </div>
+
+            <div class="form-group" id="divEndereco">
+                <label>Endereço Completo (Rua, Número, Bairro, Ref):</label>
+                <textarea id="clienteEndereco" rows="3" placeholder="Ex: Rua das Flores, 123, Cabula VI. Ao lado da padaria."></textarea>
+            </div>
+
+            <div class="form-group">
+                <label>Forma de Pagamento:</label>
+                <select id="pagamento">
+                    <option value="Pix">Pix</option>
+                    <option value="Cartão">Cartão (Levamos maquininha)</option>
+                    <option value="Dinheiro">Dinheiro (Precisa troco?)</option>
+                </select>
+            </div>
+
+            <button class="btn-confirm" onclick="enviarPedido()">Enviar para WhatsApp</button>
+            <button class="btn-close" onclick="fecharModal()">Continuar Comprando</button>
+        </div>
+    </div>
+
+    <div class="toast" id="toast">Item adicionado!</div>
+
+    <script>
+        // CONFIGURAÇÃO DO WHATSAPP
+        const WHATSAPP_NUMBER = "5571987112687"; 
+
+        // BANCO DE DADOS DE PRODUTOS
+        const produtosSushi = [
+            {
+                id: 1,
+                nome: "Super Combo 40 Peças",
+                desc: "5 hot roll, 5 skim maki, 5 california, 5 shake couve, 5 hot fila, 5 hussomaki, 5 husso kani, 5 kanimaki + Refri Lata.",
+                preco: 46.00,
+                img: "https://res.cloudinary.com/dzracc9pu/image/upload/v1768609105/40_PE%C3%87AS_DE_0_99_MAIS_REFRI_POR_46_00_ptg7ly.png"
+            },
+            {
+                id: 2,
+                nome: "Combo 45 Peças Sortidas",
+                desc: "Peças variadas selecionadas pelo chef. Equivalente a sushi de R$1. Melhor custo benefício!",
+                preco: 48.00,
+                img: "https://res.cloudinary.com/dzracc9pu/image/upload/v1768609105/40_PE%C3%87AS_DE_0_99_MAIS_REFRI_POR_46_00_ptg7ly.png"
+            },
+            {
+                id: 3,
+                nome: "Combo 30 Peças + Refri Litro",
+                desc: "Ideal para casal. 30 peças sortidas deliciosas + Refrigerante de 1 Litro.",
+                preco: 42.00,
+                img: "https://res.cloudinary.com/dzracc9pu/image/upload/v1768609105/40_PE%C3%87AS_DE_0_99_MAIS_REFRI_POR_46_00_ptg7ly.png"
+            },
+            {
+                id: 4,
+                nome: "35 Peças Sortidas + Refri Lata",
+                desc: "Serve bem até 1 pessoa com muita fome. Peças sortidas + Refri gelado.",
+                preco: 42.00,
+                img: "https://res.cloudinary.com/dzracc9pu/image/upload/v1768609105/40_PE%C3%87AS_DE_0_99_MAIS_REFRI_POR_46_00_ptg7ly.png"
+            },
+            {
+                id: 5,
+                nome: "Família: 50 Peças + Refri Litro",
+                desc: "O gigante! 50 peças variadas para dividir com a família ou amigos.",
+                preco: 62.00,
+                img: "https://res.cloudinary.com/dzracc9pu/image/upload/v1768609105/40_PE%C3%87AS_DE_0_99_MAIS_REFRI_POR_46_00_ptg7ly.png"
+            },
+            {
+                id: 6,
+                nome: "Combo Solteiro",
+                desc: "Yakisoba 500g + Rolinho Primavera + Refri Lata.",
+                preco: 35.00, 
+                img: "https://res.cloudinary.com/dzracc9pu/image/upload/v1768609586/SOLTEIRO_pwwogg.png"
+            }
+        ];
+
+        const produtosYaki = [
+            {
+                id: 7,
+                nome: "Yakisoba Camarão 1KG",
+                desc: "Porção gigante de 1KG. Delicioso yakisoba de camarão, legumes e variados.",
+                preco: 56.90,
+                img: "https://res.cloudinary.com/dzracc9pu/image/upload/v1768609104/YAKI_CAMARAO_1K_56_90_lmifsi.png"
+            },
+            {
+                id: 8,
+                nome: "Yakisoba Misto 1KG",
+                desc: "Porção gigante de 1KG. Misto de Carne, Frango e Legumes.",
+                preco: 50.00, // Preço estimado (ajuste se necessário)
+                img: "https://res.cloudinary.com/dzracc9pu/image/upload/v1768609104/MISTO_CARNE_FRANGO_LEGUMES_500G_R_30_ef8yoc.png"
+            },
+            {
+                id: 9,
+                nome: "Yakisoba Misto Camarão 500g",
+                desc: "Delicioso yakisoba de camarão, legumes e variados.",
+                preco: 38.80,
+                img: "https://res.cloudinary.com/dzracc9pu/image/upload/v1768609104/YAKI_CAMARAO_1K_56_90_lmifsi.png"
+            },
+            {
+                id: 10,
+                nome: "Yakisoba Misto Carne/Frango 500g",
+                desc: "Carne, Frango e Legumes variados. 500g.",
+                preco: 30.00,
+                img: "https://res.cloudinary.com/dzracc9pu/image/upload/v1768609104/MISTO_CARNE_FRANGO_LEGUMES_500G_R_30_ef8yoc.png"
+            },
+            {
+                id: 11,
+                nome: "Yakisoba de Carne 500g",
+                desc: "Carne selecionada, macarrão e legumes frescos.",
+                preco: 30.00,
+                img: "https://res.cloudinary.com/dzracc9pu/image/upload/v1768609104/CANRE_500G_30R_i71xos.png"
+            },
+            {
+                id: 12,
+                nome: "Yakisoba de Frango 500g",
+                desc: "Cubos de frango suculentos com legumes.",
+                preco: 28.90,
+                img: "https://res.cloudinary.com/dzracc9pu/image/upload/v1768609104/YAKI_FRANGO_500G0_p9w3wp.png"
+            },
+            {
+                id: 13,
+                nome: "Yakisoba Veggie (Vegetariano)",
+                desc: "Apenas legumes selecionados e frescos. 500g.",
+                preco: 28.90,
+                img: "https://res.cloudinary.com/dzracc9pu/image/upload/v1768609103/YAKI_VEGI_28_9_tryhys.png"
+            }
+        ];
+
+        const produtosBebidas = [
+            {
+                id: 14,
+                nome: "Coca-Cola Lata",
+                desc: "350ml - Gelada",
+                preco: 6.00,
+                img: "https://images.unsplash.com/photo-1622483767028-3f66f32aef97?q=80&w=1470&auto=format&fit=crop"
+            },
+            {
+                id: 15,
+                nome: "Refrigerante 1 Litro",
+                desc: "Guaraná ou Coca (Sabor sujeito a disponibilidade)",
+                preco: 8.00,
+                img: "https://images.unsplash.com/photo-1624517452488-04869289c4ca?q=80&w=1403&auto=format&fit=crop"
+            }
+        ];
+
+        let carrinho = [];
+
+        // RENDERIZAR PRODUTOS
+        function renderMenu() {
+            const sushiContainer = document.getElementById('grid-sushi');
+            const yakiContainer = document.getElementById('grid-yaki');
+            const bebidasContainer = document.getElementById('grid-bebidas');
+
+            produtosSushi.forEach(p => sushiContainer.innerHTML += createCard(p));
+            produtosYaki.forEach(p => yakiContainer.innerHTML += createCard(p));
+            produtosBebidas.forEach(p => bebidasContainer.innerHTML += createCard(p));
+        }
+
+        function createCard(produto) {
+            return `
+                <div class="card">
+                    <img src="${produto.img}" alt="${produto.nome}" class="card-img">
+                    <div class="card-content">
+                        <h3>${produto.nome}</h3>
+                        <p>${produto.desc}</p>
+                        <div class="card-footer">
+                            <span class="price">R$ ${produto.preco.toFixed(2).replace('.', ',')}</span>
+                            <button class="btn-add" onclick="adicionarAoCarrinho(${produto.id}, '${produto.nome}', ${produto.preco})">
+                                <i class="fas fa-plus"></i> Adicionar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        // LÓGICA DO CARRINHO
+        function adicionarAoCarrinho(id, nome, preco) {
+            carrinho.push({ id, nome, preco });
+            atualizarCarrinho();
+            mostrarToast();
+        }
+
+        function atualizarCarrinho() {
+            const cartBar = document.getElementById('cartBar');
+            const cartTotal = document.getElementById('cartTotal');
+            
+            if (carrinho.length > 0) {
+                cartBar.classList.add('active');
+                const total = carrinho.reduce((sum, item) => sum + item.preco, 0);
+                cartTotal.innerText = `R$ ${total.toFixed(2).replace('.', ',')} (${carrinho.length} itens)`;
+            } else {
+                cartBar.classList.remove('active');
+            }
+        }
+
+        function mostrarToast() {
+            const toast = document.getElementById('toast');
+            toast.style.display = 'block';
+            setTimeout(() => { toast.style.display = 'none'; }, 2000);
+        }
+
+        // MODAL E CHECKOUT
+        function abrirModal() { document.getElementById('modalCheckout').style.display = 'flex'; }
+        function fecharModal() { document.getElementById('modalCheckout').style.display = 'none'; }
+
+        function toggleEndereco() {
+            const tipo = document.getElementById('tipoEntrega').value;
+            const divEnd = document.getElementById('divEndereco');
+            divEnd.style.display = tipo === 'retirada' ? 'none' : 'block';
+        }
+
+        function enviarPedido() {
+            const nome = document.getElementById('clienteNome').value;
+            const entrega = document.getElementById('tipoEntrega').value;
+            const endereco = document.getElementById('clienteEndereco').value;
+            const pagamento = document.getElementById('pagamento').value;
+
+            if (!nome) { alert('Por favor, digite seu nome.'); return; }
+            if (entrega === 'delivery' && !endereco) { alert('Por favor, digite o endereço de entrega.'); return; }
+
+            // Montar Mensagem
+            let msg = `*NOVO PEDIDO - TSU SAN SITE*\n\n`;
+            msg += `👤 *Cliente:* ${nome}\n`;
+            msg += `🛵 *Tipo:* ${entrega === 'delivery' ? 'Entrega' : 'Retirada'}\n`;
+            if(entrega === 'delivery') msg += `📍 *Endereço:* ${endereco}\n`;
+            msg += `💳 *Pagamento:* ${pagamento}\n\n`;
+            msg += `*ITENS DO PEDIDO:*\n`;
+
+            let total = 0;
+            carrinho.forEach(item => {
+                msg += `🍱 1x ${item.nome} - R$ ${item.preco.toFixed(2).replace('.', ',')}\n`;
+                total += item.preco;
+            });
+
+            msg += `\n💰 *TOTAL: R$ ${total.toFixed(2).replace('.', ',')}*`;
+
+            // Enviar
+            const url = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`;
+            window.open(url, '_blank');
+        }
+
+        // INICIALIZAR
+        window.onload = renderMenu;
+    </script>
+</body>
+</html>
