@@ -24,8 +24,9 @@
 
         /* HERO HEADER */
         header {
+            /* Imagem de fundo genérica de Sushi */
             background: linear-gradient(to bottom, rgba(0,0,0,0.8), var(--dark)), 
-                        url('https://images.unsplash.com/photo-1553621042-f6e147245754?q=80&w=1325&auto=format&fit=crop');
+                        url('https://images.unsplash.com/photo-1579871494447-9811cf80d66c?q=80&w=1470&auto=format&fit=crop');
             background-size: cover;
             background-position: center;
             padding: 40px 20px;
@@ -214,13 +215,13 @@
 <body>
 
     <header>
-        <!-- LOGO ATUALIZADA -->
-        <img src="https://res.cloudinary.com/dzracc9pu/image/upload/v1768610796/WhatsApp_Image_2026-01-16_at_21.46.09_k5cbhj.jpg" alt="Tsu San Logo" class="logo">
+        <!-- LOGO GENÉRICA (Placeholder) -->
+        <img src="https://placehold.co/150x150/e43f3f/white?text=LOGO" alt="Tsu San Logo" class="logo">
         <h1>TSU SAN</h1>
-        <p class="subtitle">O melhor do Sushi e Yakisoba no Cabula VI. Peça direto conosco e garanta promoções exclusivas!</p>
+        <p class="subtitle">O melhor do Sushi e Yakisoba na sua região. Peça direto conosco e garanta promoções exclusivas!</p>
         
         <div class="header-btns">
-            <a href="https://www.ifood.com.br/delivery/salvador-ba/tsu-san-cabula-vi/efa2e708-e8b1-4069-bf21-967fb0b232e9" target="_blank" class="btn-header btn-ifood">
+            <a href="#" class="btn-header btn-ifood">
                 <i class="fas fa-utensils"></i> Ver no iFood
             </a>
             <a href="#menu" class="btn-header btn-wpp">
@@ -280,7 +281,7 @@
 
             <div class="form-group" id="divEndereco">
                 <label>Endereço Completo (Rua, Número, Bairro, Ref):</label>
-                <textarea id="clienteEndereco" rows="3" placeholder="Ex: Rua das Flores, 123, Cabula VI. Ao lado da padaria."></textarea>
+                <textarea id="clienteEndereco" rows="3" placeholder="Ex: Rua das Flores, 123, Bairro Centro. Ao lado da padaria."></textarea>
             </div>
 
             <div class="form-group">
@@ -300,52 +301,53 @@
     <div class="toast" id="toast">Item adicionado!</div>
 
     <script>
-        // CONFIGURAÇÃO DO WHATSAPP
-        const WHATSAPP_NUMBER = "5571987112687"; 
+        // CONFIGURAÇÃO DO WHATSAPP - Substitua pelo seu número
+        const WHATSAPP_NUMBER = "5500000000000"; 
 
         // BANCO DE DADOS DE PRODUTOS
+        // Imagens substituídas por imagens genéricas de alta qualidade do Unsplash
         const produtosSushi = [
             {
                 id: 1,
                 nome: "Super Combo 40 Peças",
                 desc: "5 hot roll, 5 skim maki, 5 california, 5 shake couve, 5 hot fila, 5 hussomaki, 5 husso kani, 5 kanimaki + Refri Lata.",
                 preco: 46.00,
-                img: "https://res.cloudinary.com/dzracc9pu/image/upload/v1768609105/40_PE%C3%87AS_DE_0_99_MAIS_REFRI_POR_46_00_ptg7ly.png"
+                img: "https://images.unsplash.com/photo-1611143669185-af224c5e3252?q=80&w=1332&auto=format&fit=crop"
             },
             {
                 id: 2,
                 nome: "Combo 45 Peças Sortidas",
                 desc: "Peças variadas selecionadas pelo chef. Equivalente a sushi de R$1. Melhor custo benefício!",
                 preco: 48.00,
-                img: "https://res.cloudinary.com/dzracc9pu/image/upload/v1768609105/40_PE%C3%87AS_DE_0_99_MAIS_REFRI_POR_46_00_ptg7ly.png"
+                img: "https://images.unsplash.com/photo-1579584425555-c3ce17fd4351?q=80&w=1287&auto=format&fit=crop"
             },
             {
                 id: 3,
                 nome: "Combo 30 Peças + Refri Litro",
                 desc: "Ideal para casal. 30 peças sortidas deliciosas + Refrigerante de 1 Litro.",
                 preco: 42.00,
-                img: "https://res.cloudinary.com/dzracc9pu/image/upload/v1768609105/40_PE%C3%87AS_DE_0_99_MAIS_REFRI_POR_46_00_ptg7ly.png"
+                img: "https://images.unsplash.com/photo-1617196019834-a5807461772d?q=80&w=1470&auto=format&fit=crop"
             },
             {
                 id: 4,
                 nome: "35 Peças Sortidas + Refri Lata",
                 desc: "Serve bem até 1 pessoa com muita fome. Peças sortidas + Refri gelado.",
                 preco: 42.00,
-                img: "https://res.cloudinary.com/dzracc9pu/image/upload/v1768609105/40_PE%C3%87AS_DE_0_99_MAIS_REFRI_POR_46_00_ptg7ly.png"
+                img: "https://images.unsplash.com/photo-1553621042-f6e147245754?q=80&w=1325&auto=format&fit=crop"
             },
             {
                 id: 5,
                 nome: "Família: 50 Peças + Refri Litro",
                 desc: "O gigante! 50 peças variadas para dividir com a família ou amigos.",
                 preco: 62.00,
-                img: "https://res.cloudinary.com/dzracc9pu/image/upload/v1768609105/40_PE%C3%87AS_DE_0_99_MAIS_REFRI_POR_46_00_ptg7ly.png"
+                img: "https://images.unsplash.com/photo-1633478062482-790e3b5dd810?q=80&w=1336&auto=format&fit=crop"
             },
             {
                 id: 6,
                 nome: "Combo Solteiro",
                 desc: "Yakisoba 500g + Rolinho Primavera + Refri Lata.",
                 preco: 35.00, 
-                img: "https://res.cloudinary.com/dzracc9pu/image/upload/v1768609586/SOLTEIRO_pwwogg.png"
+                img: "https://images.unsplash.com/photo-1583623025817-d180a2221d0a?q=80&w=1471&auto=format&fit=crop"
             }
         ];
 
@@ -355,49 +357,49 @@
                 nome: "Yakisoba Camarão 1KG",
                 desc: "Porção gigante de 1KG. Delicioso yakisoba de camarão, legumes e variados.",
                 preco: 56.90,
-                img: "https://res.cloudinary.com/dzracc9pu/image/upload/v1768609104/YAKI_CAMARAO_1K_56_90_lmifsi.png"
+                img: "https://images.unsplash.com/photo-1585032226651-759b368d7246?q=80&w=1292&auto=format&fit=crop"
             },
             {
                 id: 8,
                 nome: "Yakisoba Misto 1KG",
                 desc: "Porção gigante de 1KG. Misto de Carne, Frango e Legumes.",
-                preco: 50.00, // Preço estimado (ajuste se necessário)
-                img: "https://res.cloudinary.com/dzracc9pu/image/upload/v1768609104/MISTO_CARNE_FRANGO_LEGUMES_500G_R_30_ef8yoc.png"
+                preco: 50.00,
+                img: "https://images.unsplash.com/photo-1542354256-4f4db4a8df41?q=80&w=1336&auto=format&fit=crop"
             },
             {
                 id: 9,
                 nome: "Yakisoba Misto Camarão 500g",
                 desc: "Delicioso yakisoba de camarão, legumes e variados.",
                 preco: 38.80,
-                img: "https://res.cloudinary.com/dzracc9pu/image/upload/v1768609104/YAKI_CAMARAO_1K_56_90_lmifsi.png"
+                img: "https://images.unsplash.com/photo-1552611052-33e04de081de?q=80&w=1364&auto=format&fit=crop"
             },
             {
                 id: 10,
                 nome: "Yakisoba Misto Carne/Frango 500g",
                 desc: "Carne, Frango e Legumes variados. 500g.",
                 preco: 30.00,
-                img: "https://res.cloudinary.com/dzracc9pu/image/upload/v1768609104/MISTO_CARNE_FRANGO_LEGUMES_500G_R_30_ef8yoc.png"
+                img: "https://images.unsplash.com/photo-1605333140292-1b64da3e9112?q=80&w=1335&auto=format&fit=crop"
             },
             {
                 id: 11,
                 nome: "Yakisoba de Carne 500g",
                 desc: "Carne selecionada, macarrão e legumes frescos.",
                 preco: 30.00,
-                img: "https://res.cloudinary.com/dzracc9pu/image/upload/v1768609104/CANRE_500G_30R_i71xos.png"
+                img: "https://images.unsplash.com/photo-1585032226651-759b368d7246?q=80&w=1292&auto=format&fit=crop"
             },
             {
                 id: 12,
                 nome: "Yakisoba de Frango 500g",
                 desc: "Cubos de frango suculentos com legumes.",
                 preco: 28.90,
-                img: "https://res.cloudinary.com/dzracc9pu/image/upload/v1768609104/YAKI_FRANGO_500G0_p9w3wp.png"
+                img: "https://images.unsplash.com/photo-1542354256-4f4db4a8df41?q=80&w=1336&auto=format&fit=crop"
             },
             {
                 id: 13,
                 nome: "Yakisoba Veggie (Vegetariano)",
                 desc: "Apenas legumes selecionados e frescos. 500g.",
                 preco: 28.90,
-                img: "https://res.cloudinary.com/dzracc9pu/image/upload/v1768609103/YAKI_VEGI_28_9_tryhys.png"
+                img: "https://images.unsplash.com/photo-1627207644024-87729aa9885e?q=80&w=1470&auto=format&fit=crop"
             }
         ];
 
